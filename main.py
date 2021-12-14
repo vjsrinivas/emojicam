@@ -13,7 +13,7 @@ from scipy.spatial import distance
 import time
 
 logging.basicConfig(format='%(asctime)s - %(message)s')
-logging.basicConfig(level=logging.INFO)
+#logging.basicConfig(level=logging.INFO)
 
 def parseArgs():
     """parseArgs
@@ -237,7 +237,7 @@ if __name__ == '__main__':
                     out_frame = emoji(rgbFrame)
                     
                     t2 = time.time()    
-                    logging.info("Frame - FPS:", 1/(t2-t1))
+                    logging.warn("Frame - FPS: %f"%(1/(t2-t1)))
                     cv2.imshow('Frame Viewer', out_frame)
                     cv2.waitKey(1)
                     videoOut.write(out_frame)
