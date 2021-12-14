@@ -19,7 +19,7 @@
 3. Download Twitter Emoji library [here](https://github.com/twitter/twemoji/archive/refs/heads/master.zip), extract the `72x72` folder under `./assets/`, and rename folder to "twitter".
 4. Run script:
     * Calculating from scratch: `python main.py` (**NOTE:** Calculating cache will take ~1.5 hours )
-    * Calculating from cache is just the same command. You can get the [cache here]('https://drive.google.com/file/d/1I6Y5ihons7G3wFlIW5tosuAgPTbC5GtT/view?usp=sharing')
+    * Calculating from cache is just the same command. You can get the [cache here](https://drive.google.com/file/d/1I6Y5ihons7G3wFlIW5tosuAgPTbC5GtT/view?usp=sharing)
 
 ## Main Usage
 
