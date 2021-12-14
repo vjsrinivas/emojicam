@@ -20,6 +20,10 @@
 4. Run script:
     * Calculating from scratch: `python main.py` (**NOTE:** Calculating cache will take ~1.5 hours )
     * Calculating from cache is just the same command. You can get the [cache here](https://drive.google.com/file/d/1I6Y5ihons7G3wFlIW5tosuAgPTbC5GtT/view?usp=sharing)
+    
+**Performance:** On my machine (AMD Ryzen 2700X), I was able to maintain 38-42 FPS. If using a lower-spec CPU (this is pretty CPU dependent), then try:
+   - Decreasing video size
+   - Increasing pixelization size
 
 ## Main Usage
 
@@ -42,3 +46,4 @@ optional arguments:
 ## Future Work:
 
 Optimize algorithm, rethink mapping algorithm, and program as some kind of filter for a social media platform.
+Hmmmm.... could multithreading help speed things up?
