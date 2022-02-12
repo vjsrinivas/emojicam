@@ -27,12 +27,14 @@ def parseArgs():
     help="Video output path. Enter a string to the path where the video output will be saved. Default is a .mp4 file. Example: python main.py --output out.mp4")
     parser.add_argument('--depthai', action='store_true', default=False,
     help="Optional flag only used for DepthAI devices. Flag is false by default. After enabling program will import depthai module.")
+    parser.add_argument('--noweight', action='store_true', default=False)
     return parser.parse_args()
 
 class emojiCam:
-    def __init__(self, emojiPicPath='./twitter') -> None:
+    def __init__(self, emojiPicPath='./twitter', doWeight=True) -> None:
         self.emojiMap, self.emojis = self.__genEmojiMap__(emojiPicPath)
         self.emojis = self.__prepImages__(self.emojis)
+        self.doWeight = doWeight
 
     def __call__(self, frame):
         """Takes in image frame and pixelizes it and maps it to emojis
@@ -56,9 +58,11 @@ class emojiCam:
                     emo = self.emojis[-1]
                 else:
                     emo = self.emojis[emojiID]
-                
-                canvas[i:i+24, j:j+24, :] = cv2.addWeighted(emo, 0.7, segment_block, 0.3, 0.0)
-                #canvas[i:i+24, j:j+24, :] = emo # no weight
+
+                if self.doWeight:
+                    canvas[i:i+24, j:j+24, :] = cv2.addWeighted(emo, 0.7, segment_block, 0.3, 0.0)
+                else:
+                    canvas[i:i+24, j:j+24, :] = emo # no weight
         return canvas
 
     def __genEmojiMap__(self, emojiPicPath):
@@ -221,7 +225,7 @@ if __name__ == '__main__':
 
         # Linking
         camRgb.video.link(xoutVideo.input)
-        emoji = emojiCam()
+        emoji = emojiCam(doWeight= not args.noweight)
         
         # Connect to device and start pipeline
         with dai.Device(pipeline) as device:
@@ -254,7 +258,7 @@ if __name__ == '__main__':
         fourcc = cv2.VideoWriter_fourcc(*"mp4v")
         videoOut = cv2.VideoWriter(args.output, fourcc, 30, (1920,1080))
 
-        emoji = emojiCam()
+        emoji = emojiCam(doWeight= not args.noweight)
         
         while(True):
             ret, frame = videoIn.read()
